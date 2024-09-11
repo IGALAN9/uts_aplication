@@ -1,8 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Profile extends StatelessWidget {
+class Profile extends StatefulWidget {
   const Profile({super.key});
+
+  @override
+  _ProfileState createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
+  int currentIndex = 0; // Tracks the selected tab (0 = Posts, 1 = Liked)
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +30,6 @@ class Profile extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          //colum isi bagian atas (profile,nama,username)
           Column(
             children: [
               // CircleAvatar with an Icon as the background image
@@ -47,7 +53,7 @@ class Profile extends StatelessWidget {
                 style: TextStyle(fontSize: 10, fontStyle: FontStyle.italic),
               ),
               const SizedBox(height: 10),
-              // row buat menampilkan followers dan following
+              // Row for followers and following
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -58,7 +64,7 @@ class Profile extends StatelessWidget {
                         style: Theme.of(context)
                             .textTheme
                             .headlineSmall
-                            ?.copyWith(fontSize: 17), // Custom font size
+                            ?.copyWith(fontSize: 17),
                       ),
                       const SizedBox(
                         height: 5,
@@ -84,7 +90,69 @@ class Profile extends StatelessWidget {
                     ],
                   ),
                 ],
-              )
+              ),
+              const SizedBox(height: 8),
+              Container(
+                color: Colors.white,
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+              ),
+              // tab buat post dan liked
+              Material(
+                elevation: 1,
+                child: Container(
+                  height: 56,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            currentIndex = 0;
+                          });
+                        },
+                        child: Text(
+                          'Posts',
+                          style: TextStyle(
+                            fontWeight: currentIndex == 0
+                                ? FontWeight.bold
+                                : FontWeight.normal,
+                            color:
+                                currentIndex == 0 ? Colors.blue : Colors.black,
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            currentIndex = 1; // Highlight 'Liked'
+                          });
+                        },
+                        child: Text(
+                          'Liked',
+                          style: TextStyle(
+                            fontWeight: currentIndex == 1
+                                ? FontWeight.bold
+                                : FontWeight.normal,
+                            color:
+                                currentIndex == 1 ? Colors.blue : Colors.black,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              // buat isi dalem post dan liked
+              if (currentIndex == 0)
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  child: Text("User Belum Ngepost Apa-pun..."),
+                )
+              else
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  child: Text("User Belum Ngelike Apa-pun..."),
+                ),
             ],
           ),
         ],
