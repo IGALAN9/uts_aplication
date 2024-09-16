@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:uts_aplication/profile/profile_settings/account_settings.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -16,7 +17,7 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.red,
         foregroundColor: Colors.black,
         title: const Text('PROFILE'),
         centerTitle: true,
@@ -25,14 +26,21 @@ class _ProfileState extends State<Profile> {
           icon: const Icon(Icons.arrow_back_ios_new_sharp),
         ),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.settings_rounded))
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AccountSettings()),
+                );
+              },
+              icon: const Icon(Icons.settings_rounded))
         ],
       ),
       body: ListView(
         children: [
           Column(
             children: [
-              // CircleAvatar with an Icon as the background image
+              // avatar buat profile picture
               CircleAvatar(
                 radius: 50,
                 backgroundColor: Colors.grey[200],
@@ -53,7 +61,7 @@ class _ProfileState extends State<Profile> {
                 style: TextStyle(fontSize: 10, fontStyle: FontStyle.italic),
               ),
               const SizedBox(height: 10),
-              // Row for followers and following
+              // Row buat followers dan following
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
