@@ -110,6 +110,7 @@ class _ProfileState extends State<Profile> {
                             currentIndex = 0;
                           });
                         },
+                        // ini buat posts klo di pencet dia index 0 dan warnanya berubah jadi biru klo engga jadi item
                         child: Text(
                           'Posts',
                           style: TextStyle(
