@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:uts_aplication/profile/Profile_Edit/Edit_profile.dart';
 import 'package:uts_aplication/profile/profile_settings/account_settings.dart';
 
 class Profile extends StatefulWidget {
@@ -10,7 +11,7 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  int currentIndex = 0; // Tracks the selected tab (0 = Posts, 1 = Liked)
+  int currentIndex = 0; 
 
   @override
   Widget build(BuildContext context) {
@@ -97,6 +98,30 @@ class _ProfileState extends State<Profile> {
                           style: Theme.of(context).textTheme.labelSmall)
                     ],
                   ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Column(
+                children: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => EditProfile()),
+                        );
+                      },
+                      style: TextButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 24.0, vertical: 12.0),
+                        backgroundColor: Colors.red,
+                        foregroundColor:
+                            Colors.white, // Background color // Text color
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                      ),
+                      child: Text('Edit Profile'))
                 ],
               ),
               const SizedBox(height: 8),

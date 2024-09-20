@@ -43,8 +43,9 @@ class _AccountSettingsState extends State<AccountSettings> {
             BuildPolicy(),
             BuildAbout()
           ]),
-          SettingsGroup(title: 'Login', children: <Widget>[
+          SettingsGroup(title: 'Account', children: <Widget>[
             BuildAddaccount(),
+            BuildResetPass(),
             BuildSecure(),
             BuildLogout()
           ]),
@@ -102,9 +103,15 @@ Widget BuildAbout() => SimpleSettingsTile(
       onTap: () {},
     );
 
-//LOGIN
+//Account
 Widget BuildAddaccount() => SimpleSettingsTile(
       title: 'Add Account',
+      titleTextStyle: TextStyle(fontSize: 13),
+      onTap: () {},
+    );
+
+Widget BuildResetPass() => SimpleSettingsTile(
+      title: 'Reset Password',
       titleTextStyle: TextStyle(fontSize: 13),
       onTap: () {},
     );
