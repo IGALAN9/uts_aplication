@@ -16,7 +16,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Forgot Password"),
-        backgroundColor: Colors.blue.shade600,
+        backgroundColor: const Color.fromARGB(255, 227, 170, 231),
       ),
       body: SingleChildScrollView(
         child: Container(
