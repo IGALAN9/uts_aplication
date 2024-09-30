@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_group3/profile/profile.dart';
 import 'detail.dart';
 
 class UserScreen extends StatefulWidget {
@@ -15,6 +16,16 @@ class _UserScreenState extends State<UserScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Bookmark'),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Profile()),
+                );
+              },
+              icon: const Icon(CupertinoIcons.profile_circled))
+        ],
       ),
       body: GridView.count(
         childAspectRatio: 0.78,
@@ -49,7 +60,6 @@ class _UserScreenState extends State<UserScreen> {
 
 class Foto extends StatefulWidget {
   final String fotoPath;
-  
 
   const Foto({required this.fotoPath});
 

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
-import 'package:uts_aplication/profile/profile.dart';
+import 'package:flutter_group3/profile/profile.dart';
 
 class AccountSettings extends StatefulWidget {
   const AccountSettings({super.key});

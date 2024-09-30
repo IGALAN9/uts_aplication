@@ -5,7 +5,7 @@ import 'package:flutter_group3/plus_screen/plus.dart';
 import 'package:flutter_group3/user_screen/user.dart';
 import 'home_screen/home.dart';
 import 'search_screen/search.dart';
-import 'package:uts_aplication/profile/profile.dart';
+import 'package:flutter_group3/profile/profile.dart';
 
 void main() {
   runApp(const MyApp());

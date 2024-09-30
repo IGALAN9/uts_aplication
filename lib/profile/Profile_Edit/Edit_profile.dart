@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:uts_aplication/profile/profile.dart';
+import 'package:flutter_group3/profile/profile.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});

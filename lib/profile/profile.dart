@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:uts_aplication/profile/Profile_Edit/Edit_profile.dart';
-import 'package:uts_aplication/profile/profile_settings/account_settings.dart';
+import 'package:flutter_group3/home_screen/home.dart';
+import 'package:flutter_group3/profile/Profile_Edit/Edit_profile.dart';
+import 'package:flutter_group3/profile/profile_settings/account_settings.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -11,7 +12,7 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  int currentIndex = 0; 
+  int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,11 @@ class _ProfileState extends State<Profile> {
         title: const Text('PROFILE'),
         centerTitle: true,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            setState(() {
+              Navigator.pop(context);
+            });
+          },
           icon: const Icon(Icons.arrow_back_ios_new_sharp),
         ),
         actions: [
