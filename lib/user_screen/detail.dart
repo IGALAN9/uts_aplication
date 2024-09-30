@@ -8,7 +8,7 @@ class Detail extends StatefulWidget {
 }
 
 class _DetailState extends State<Detail> {
-  bool isBookmarked = false;
+  bool isBookmarked = true;
   bool isPostLiked = false;
   final TextEditingController _commentController = TextEditingController();
   List<String> comments = [];
@@ -58,7 +58,7 @@ class _DetailState extends State<Detail> {
                     });
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: isBookmarked ? Colors.grey[350] : Colors.deepPurple,
+                    backgroundColor: isBookmarked ? Colors.grey[350] : Colors.red,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),

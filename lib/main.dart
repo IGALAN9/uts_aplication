@@ -1,28 +1,27 @@
 import 'package:flutter/material.dart';
+import 'welcome_screen.dart';
 import 'package:flutter_group3/notification_screen/notification.dart';
 import 'package:flutter_group3/plus_screen/plus.dart';
 import 'package:flutter_group3/user_screen/user.dart';
 import 'home_screen/home.dart';
 import 'search_screen/search.dart';
 
-void main() async{
+void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Social Media',
-      debugShowCheckedModeBanner: false,
+      title: 'Social Media Group 3',
       theme: ThemeData(
-        colorScheme: const ColorScheme.light(),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MainPage(),
+      home: WelcomeScreen(),
     );
   }
 }
