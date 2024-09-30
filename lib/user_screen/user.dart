@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'detail.dart';
 
 class UserScreen extends StatefulWidget {
   const UserScreen({super.key});
@@ -19,7 +21,7 @@ class _UserScreenState extends State<UserScreen> {
         crossAxisCount: 2,
         mainAxisSpacing: 2,
         crossAxisSpacing: 6,
-        padding: EdgeInsets.all(15),
+        padding: const EdgeInsets.all(15),
         children: <Widget>[
           Foto(fotoPath: 'assets/image1.jpg'),
           Foto(fotoPath: 'assets/image3.jpg'),
@@ -47,8 +49,9 @@ class _UserScreenState extends State<UserScreen> {
 
 class Foto extends StatefulWidget {
   final String fotoPath;
+  
 
-  Foto({required this.fotoPath});
+  const Foto({required this.fotoPath});
 
   @override
   _FotoState createState() => _FotoState();
@@ -61,41 +64,10 @@ class _FotoState extends State<Foto> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (context) => Dialog(
-            backgroundColor: Colors.transparent,
-            child: Stack(
-              children: [
-                GestureDetector(
-                  child: Center(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20.0),
-                      child: Image.asset(
-                        widget.fotoPath,
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: -15.0,
-                  left: -10,
-                  child: Container(
-                    width: 60,
-                    height: 30,
-                    child: IconButton(
-                      iconSize: 35,
-                      icon: Icon(Icons.arrow_back, color: Colors.white),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ),
-                ),
-              ],
-            ),
+        Navigator.push(
+          context,
+          CupertinoPageRoute(
+            builder: (context) => Detail(widget.fotoPath),
           ),
         );
       },
