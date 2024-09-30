@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_group3/main.dart';
 
 class PostDetail extends StatefulWidget {
   final String imagePath;
@@ -25,7 +26,11 @@ class _PostDetailState extends State<PostDetail> {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.popUntil(context, (route) => route.isFirst);
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const MainPage()),
+                (route)=>false,
+              );
               _showSuccessSnackBar(context, 'Berhasil di post!');
             },
             style: TextButton.styleFrom(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:uts_aplication/forgotPassword.dart';
+import 'main.dart';
+import 'forgotPassword.dart';
 import 'signUp.dart';
 
 void main() {
@@ -39,10 +40,10 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
+              const Expanded(
                 flex: 2,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
+                  padding: EdgeInsets.symmetric(
                       vertical: 36.0, horizontal: 24.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -181,8 +182,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: GestureDetector(
                               onTap: () {
                                 if (_formKey.currentState!.validate()) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text('Processing Login')),
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => const MainPage()),
                                   );
                                 }
                               },
