@@ -14,7 +14,7 @@ class _UserScreenState extends State<UserScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('User Screen'),
+        title: const Text('Bookmark'),
       ),
       body: GridView.count(
         childAspectRatio: 0.78,
