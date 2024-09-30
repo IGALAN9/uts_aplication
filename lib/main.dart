@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_group3/notification_screen/notification.dart';
 import 'package:flutter_group3/plus_screen/plus.dart';
 import 'package:flutter_group3/user_screen/user.dart';
 import 'home_screen/home.dart';
 import 'search_screen/search.dart';
+
+import 'welcome_screen.dart';
+
 
 void main() async{
   runApp(const MyApp());
@@ -12,13 +16,13 @@ void main() async{
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Social Media',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+
         colorScheme: const ColorScheme.light(),
         useMaterial3: true,
       ),
@@ -97,6 +101,11 @@ class _MainPageState extends State<MainPage> {
           ),
         ],
       ),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: WelcomeScreen(),
+
     );
   }
 }
