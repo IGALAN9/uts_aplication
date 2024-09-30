@@ -29,7 +29,7 @@ class _PostDetailState extends State<PostDetail> {
               _showSuccessSnackBar(context, 'Berhasil di post!');
             },
             style: TextButton.styleFrom(
-              backgroundColor: Colors.red,
+              backgroundColor: Colors.deepPurple,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
