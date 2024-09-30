@@ -55,7 +55,7 @@ class _MainPageState extends State<MainPage> {
     const HomeScreen(),
     const SearchScreen(),  
     PlusScreen(goHome: _goHome),
-    const NotificationScreen(),
+    NotificationPage(),
     const UserScreen(),
   ];
 
