@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_group3/login.dart';
+import 'package:flutter_group3/main.dart';
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -172,8 +174,10 @@ class _SignUpPageState extends State<SignUpPage> {
                             child: GestureDetector(
                               onTap: () {
                                 if (_formKey.currentState!.validate()) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text('Processing Data')),
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const MainPage()),
                                   );
                                 }
                               },
@@ -209,7 +213,11 @@ class _SignUpPageState extends State<SignUpPage> {
                             alignment: Alignment.center,
                             child: TextButton(
                               onPressed: () {
-                                Navigator.pop(context);
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LoginScreen()),
+                                );
                               },
                               child: Text(
                                 "Already have an account? Login",
