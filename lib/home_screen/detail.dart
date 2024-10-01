@@ -58,7 +58,7 @@ class _DetailState extends State<Detail> {
                     });
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: isBookmarked ? Colors.grey[350] : Colors.red,
+                    backgroundColor: isBookmarked ? Colors.grey[350] : Colors.deepPurple,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
