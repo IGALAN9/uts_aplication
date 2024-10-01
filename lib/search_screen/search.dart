@@ -4,7 +4,8 @@ import 'search_detail.dart';
 import 'sample_data.dart';
 
 class SearchScreen extends StatefulWidget {
-  const SearchScreen({super.key});
+  final VoidCallback goHome;
+  const SearchScreen({required this.goHome, super.key});
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();

@@ -54,7 +54,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     final List<Widget> screens = [
       const HomeScreen(),
-      const SearchScreen(),
+      SearchScreen(goHome: _goHome),
       PlusScreen(goHome: _goHome),
       NotificationPage(),
       const UserScreen(),
