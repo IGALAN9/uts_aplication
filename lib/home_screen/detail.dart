@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Detail extends StatefulWidget {
   final String image;
@@ -13,6 +14,38 @@ class _DetailState extends State<Detail> {
   final TextEditingController _commentController = TextEditingController();
   List<String> comments = [];
   List<bool> isLiked = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadData();
+  }
+
+  void _loadData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isBookmarked = prefs.getBool('${widget.image}_isBookmarked') ?? false;
+      isPostLiked = prefs.getBool('${widget.image}_isPostLiked') ?? false;
+      comments = prefs.getStringList('${widget.image}_comments') ?? [];
+      isLiked = (prefs.getStringList('${widget.image}_isLiked')?.map((e) => e == 'true').toList()) ?? [];
+    });
+  }
+
+  void _saveData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('${widget.image}_isBookmarked', isBookmarked);
+    await prefs.setBool('${widget.image}_isPostLiked', isPostLiked);
+    await prefs.setStringList('${widget.image}_comments', comments);
+    await prefs.setStringList('${widget.image}_isLiked', isLiked.map((e) => e.toString()).toList());
+  }
+
+  void _deleteComment(int index) async {
+    setState(() {
+      comments.removeAt(index);
+      isLiked.removeAt(index);
+    });
+    _saveData();
+  }
 
   @override
   void dispose() {
@@ -48,6 +81,7 @@ class _DetailState extends State<Detail> {
                   onPressed: () {
                     setState (() {
                       isPostLiked = !isPostLiked;
+                      _saveData();
                     });
                   },
                 ),
@@ -55,6 +89,7 @@ class _DetailState extends State<Detail> {
                   onPressed: () {
                     setState(() {
                       isBookmarked = !isBookmarked;
+                      _saveData();
                     });
                   },
                   style: ElevatedButton.styleFrom(
@@ -106,7 +141,7 @@ class _DetailState extends State<Detail> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    IconButton(
+                                    IconButton(  //MENU LIKE
                                       icon: Icon(
                                         isLiked[index] ? Icons.favorite : Icons.favorite_border,
                                         color: isLiked[index] ? Colors.red : Colors.black,
@@ -114,12 +149,12 @@ class _DetailState extends State<Detail> {
                                       onPressed: (){
                                         setState(() {
                                           isLiked[index] = !isLiked[index];
+                                          _saveData();
                                         });
                                       },
                                       padding: const EdgeInsets.only(right: 30),
                                     ),
-
-                                    IconButton(
+                                    IconButton( //MENU LAPORAN
                                       icon: const Icon(
                                         Icons.more_horiz, color: Colors.black),
                                       onPressed: () {
@@ -154,6 +189,38 @@ class _DetailState extends State<Detail> {
                                           },
                                         );
                                       },
+                                    ),
+                                    IconButton( //ICON DELETE KOMEN
+                                      icon: const Icon(Icons.close, color: Colors.black),
+                                      onPressed: () {
+                                        FocusScope.of(context).unfocus();
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              title: const Text("Hapus"),
+                                              content: const Text(
+                                                "Hapus komentar ini?"),
+                                              actions: [
+                                                TextButton(
+                                                  child: const Text('OK'),
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                    _deleteComment(index);
+                                                  },
+                                                ),
+                                                TextButton(
+                                                  child: const Text('Batal'),
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  }
+                                                )
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      },
+                                      padding: const EdgeInsets.only(right: 20),
                                     ),
                                   ],
                                 ),
@@ -199,6 +266,7 @@ class _DetailState extends State<Detail> {
                           comments.add(_commentController.text);
                           isLiked.add(false);
                           _commentController.clear();
+                          _saveData();
                         }
                       });
                     },
