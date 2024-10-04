@@ -69,9 +69,9 @@ class _EditProfileState extends State<EditProfile> {
                     ))
               ])),
               SizedBox(height: 30),
-              buildTextField("First Name", "John"),
-              buildTextField("Last Name", "Doe"),
-              buildTextField("Username", "johndoephotos"),
+              buildTextField("First Name", "Galang"),
+              buildTextField("Last Name", "Harsa"),
+              buildTextField("Username", "galangphotos"),
               buildTextField("About", "..."),
               SizedBox(height: 5),
               Row(
