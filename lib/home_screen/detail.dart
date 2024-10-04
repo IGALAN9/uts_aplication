@@ -37,6 +37,15 @@ class _DetailState extends State<Detail> {
     await prefs.setBool('${widget.image}_isPostLiked', isPostLiked);
     await prefs.setStringList('${widget.image}_comments', comments);
     await prefs.setStringList('${widget.image}_isLiked', isLiked.map((e) => e.toString()).toList());
+
+    // Update bookmarked photos list
+    List<String> bookmarkedPhotos = prefs.getStringList('bookmarked_photos') ?? [];
+    if (isBookmarked && !bookmarkedPhotos.contains(widget.image)) {
+      bookmarkedPhotos.add(widget.image);
+    } else if (!isBookmarked && bookmarkedPhotos.contains(widget.image)) {
+      bookmarkedPhotos.remove(widget.image);
+    }
+    await prefs.setStringList('bookmarked_photos', bookmarkedPhotos);
   }
 
   void _deleteComment(int index) async {
@@ -141,7 +150,7 @@ class _DetailState extends State<Detail> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    IconButton(  //MENU LIKE
+                                    IconButton( //MENU LIKE
                                       icon: Icon(
                                         isLiked[index] ? Icons.favorite : Icons.favorite_border,
                                         color: isLiked[index] ? Colors.red : Colors.black,
@@ -176,10 +185,10 @@ class _DetailState extends State<Detail> {
                                                       const SnackBar(
                                                         content: Text(
                                                           'Komentar berhasil dilaporkan'
-                                                        ),
+                                                          ),
                                                         duration: Duration(
                                                           seconds: 2
-                                                        ),
+                                                          ),
                                                       ),
                                                     );
                                                   },
@@ -213,8 +222,8 @@ class _DetailState extends State<Detail> {
                                                   child: const Text('Batal'),
                                                   onPressed: () {
                                                     Navigator.of(context).pop();
-                                                  }
-                                                )
+                                                  },
+                                                ),
                                               ],
                                             );
                                           },
@@ -276,7 +285,7 @@ class _DetailState extends State<Detail> {
             ),
           ],
         ),
-      )
+      ),
     );
   }
 }

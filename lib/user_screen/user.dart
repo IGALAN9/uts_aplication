@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_group3/profile/profile.dart';
-import 'detail.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../home_screen/detail.dart';
 
 class UserScreen extends StatefulWidget {
   const UserScreen({super.key});
@@ -11,6 +12,23 @@ class UserScreen extends StatefulWidget {
 }
 
 class _UserScreenState extends State<UserScreen> {
+  List<String> bookmarkedPhotos = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadBookmarkedPhotos();
+  }
+
+  Future<void> _loadBookmarkedPhotos() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    
+    // Load the list of bookmarked photos
+    setState(() {
+      bookmarkedPhotos = prefs.getStringList('bookmarked_photos') ?? [];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,26 +51,8 @@ class _UserScreenState extends State<UserScreen> {
         mainAxisSpacing: 2,
         crossAxisSpacing: 6,
         padding: const EdgeInsets.all(15),
-        children: <Widget>[
-          Foto(fotoPath: 'assets/image1.jpg'),
-          Foto(fotoPath: 'assets/image3.jpg'),
-          Foto(fotoPath: 'assets/image4.jpg'),
-          Foto(fotoPath: 'assets/image5.jpg'),
-          Foto(fotoPath: 'assets/image6.jpg'),
-          Foto(fotoPath: 'assets/image7.jpg'),
-          Foto(fotoPath: 'assets/image8.jpg'),
-          Foto(fotoPath: 'assets/image9.jpg'),
-          Foto(fotoPath: 'assets/image10.jpg'),
-          Foto(fotoPath: 'assets/image12.jpg'),
-          Foto(fotoPath: 'assets/image13.jpg'),
-          Foto(fotoPath: 'assets/image14.jpg'),
-          Foto(fotoPath: 'assets/image15.jpg'),
-          Foto(fotoPath: 'assets/image16.jpg'),
-          Foto(fotoPath: 'assets/image17.jpg'),
-          Foto(fotoPath: 'assets/image18.jpg'),
-          Foto(fotoPath: 'assets/image19.jpg'),
-          Foto(fotoPath: 'assets/image20.jpg'),
-        ],
+        // Only display bookmarked photos
+        children: bookmarkedPhotos.map((fotoPath) => Foto(fotoPath: fotoPath)).toList(),
       ),
     );
   }
@@ -116,3 +116,5 @@ class _FotoState extends State<Foto> {
     );
   }
 }
+
+
