@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_group3/home_screen/home.dart';
 import 'package:flutter_group3/profile/Profile_Edit/Edit_profile.dart';
 import 'package:flutter_group3/profile/profile_settings/account_settings.dart';
+import 'package:flutter_group3/main.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -25,9 +26,10 @@ class _ProfileState extends State<Profile> {
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
-            setState(() {
-              Navigator.pop(context);
-            });
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => MainPage()),
+            );
           },
           icon: const Icon(Icons.arrow_back_ios_new_sharp),
         ),
@@ -58,12 +60,12 @@ class _ProfileState extends State<Profile> {
               ),
               const SizedBox(height: 10),
               Text(
-                'John Doe',
+                'Galang Harsa',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 0.1),
               Text(
-                '@johndoephotos',
+                '@galangphotos',
                 style: TextStyle(fontSize: 10, fontStyle: FontStyle.italic),
               ),
               const SizedBox(height: 10),
