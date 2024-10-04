@@ -29,6 +29,15 @@ class _UserScreenState extends State<UserScreen> {
     });
   }
 
+  Future<void> _updateBookmarkedPhotos() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> updatedBookmarks = prefs.getStringList('bookmarked_photos') ?? [];
+    
+    setState(() {
+      bookmarkedPhotos = updatedBookmarks;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,8 +60,10 @@ class _UserScreenState extends State<UserScreen> {
         mainAxisSpacing: 2,
         crossAxisSpacing: 6,
         padding: const EdgeInsets.all(15),
-        // Only display bookmarked photos
-        children: bookmarkedPhotos.map((fotoPath) => Foto(fotoPath: fotoPath)).toList(),
+        // display bookmarked photos
+        children: bookmarkedPhotos
+            .map((fotoPath) => Foto(fotoPath: fotoPath, onBookmarkChange: _updateBookmarkedPhotos))
+            .toList(),
       ),
     );
   }
@@ -60,8 +71,9 @@ class _UserScreenState extends State<UserScreen> {
 
 class Foto extends StatefulWidget {
   final String fotoPath;
+  final Function onBookmarkChange;
 
-  const Foto({required this.fotoPath});
+  const Foto({required this.fotoPath, required this.onBookmarkChange});
 
   @override
   _FotoState createState() => _FotoState();
@@ -69,6 +81,19 @@ class Foto extends StatefulWidget {
 
 class _FotoState extends State<Foto> {
   bool isBookmarked = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadBookmarkStatus();
+  }
+
+  void _loadBookmarkStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isBookmarked = prefs.getBool('${widget.fotoPath}_isBookmarked') ?? false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +104,7 @@ class _FotoState extends State<Foto> {
           CupertinoPageRoute(
             builder: (context) => Detail(widget.fotoPath),
           ),
-        );
+        ).then((_) => widget.onBookmarkChange());
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -102,9 +127,26 @@ class _FotoState extends State<Foto> {
                     isBookmarked ? Icons.bookmark : Icons.bookmark_border,
                   ),
                   color: isBookmarked ? Colors.yellow.shade600 : Colors.black,
-                  onPressed: () {
+                  onPressed: () async {
+                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                    List<String> bookmarkedPhotos = prefs.getStringList('bookmarked_photos') ?? [];
+
                     setState(() {
                       isBookmarked = !isBookmarked;
+
+                      // Update status bookmark
+                      prefs.setBool('${widget.fotoPath}_isBookmarked', isBookmarked);
+
+                      // Remove atau add bookmark list
+                      if (!isBookmarked) {
+                        bookmarkedPhotos.remove(widget.fotoPath);
+                      } else if (!bookmarkedPhotos.contains(widget.fotoPath)) {
+                        bookmarkedPhotos.add(widget.fotoPath);
+                      }
+
+                      // Save updated list bookmarks 
+                      prefs.setStringList('bookmarked_photos', bookmarkedPhotos);
+                      widget.onBookmarkChange();
                     });
                   },
                 ),
